@@ -30,22 +30,22 @@ def get_domains(conn) -> dict:
   domain_dicts = []
   for dom in domains:
     domain_dict = {
-                    'Domain_Name': dom.name(),
-                    'Domain_OS_Type': dom.OSType(),
-                    'Domain_UUID': dom.UUIDString(),
-                    'Domain_ID': dom.ID(),
-                    'Domain_Max_Memory_size_in_MB': dom.maxMemory(),
-                    'Domain_Max_Number_of_vCPUs': dom.maxVcpus(),
-                    'Domain_VNC_Port': get_vnc_port(dom),
-                    #'Domain_Time': dom.getTime(), # needs QEMU Guest Agent
-                    #'Domain_Hostname': dom.hostname(), # needs QEMU Guest Agent
+                    'name': dom.name(),
+                    'ostype': dom.OSType(),
+                    'uuid': dom.UUIDString(),
+                    'id': dom.ID(),
+                    'max_memory_in_mb': dom.maxMemory(),
+                    'max_vcpus': dom.maxVcpus(),
+                    'vnc_port': get_vnc_port(dom),
+                    #'time': dom.getTime(), # needs QEMU Guest Agent
+                    #'hostname': dom.hostname(), # needs QEMU Guest Agent
                   }
     state, reason = dom.state()
     if not state in LIBVIRT_DOMAIN_STATES:
-      domain_dict.update({'Domain_State': 'unknown'})
+      domain_dict.update({'state': 'unknown'})
     else:
-      domain_dict.update({'Domain_State': LIBVIRT_DOMAIN_STATES[state]})
-    domain_dict.update({'Domain_State_Reason_Code': reason})
+      domain_dict.update({'state': LIBVIRT_DOMAIN_STATES[state]})
+    domain_dict.update({'state_reason_code': reason})
 
     domain_dicts.append(domain_dict)
 
