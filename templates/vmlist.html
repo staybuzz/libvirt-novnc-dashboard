@@ -1,0 +1,13 @@
+<h2>VM List</h2>
+<div>
+{% for dom in domains %}
+  <li>
+    {% if dom.vnc_port != -1 %}
+      <a href="http://{{ novnc_host }}:{{ novnc_port }}/vnc_lite.html?token={{ dom.uuid }}" target="_black">{{ dom.name }}</a>
+    {% else %}
+      {{ dom.name }}
+    {% endif %}
+  </li>
+{% endfor %}
+
+</div>
